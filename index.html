@@ -1,16 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Password generator app</title>
-</head>
-<body>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png" />
 
-  Password Generator
+    <title>Frontend Mentor | Password generator app</title>
+  </head>
+  <body>
+    <main>
+      <h1>Password Generator</h1>
+      <div>
+        PTx1f5DaFX
+        <button>Copy Icon</button>
+      </div>
+      <form>
+        <div>
+          <label for="char-length">Character Length</label>
+          <span>10</span>
+          <input
+            type="range"
+            name="char-length"
+            id="char-length" />
+        </div>
+        <fieldset>
+          <legend>Select Inclusion Options</legend>
+
+          <div>
+            <input
+              type="checkbox"
+              name="uppercase"
+              id="uppercase" /><label for="uppercase">Include Uppercase Letters</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="lowercase"
+              id="lowercase" /><label for="lowercase">Include Lowercase Letters</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="numbers"
+              id="numbers" /><label for="numbers">Include Numbers</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="symbols"
+              id="symbols" /><label for="symbols">Include Symbols</label>
+          </div>
+        </fieldset>
+
+        <div>
+          <h2>Strength</h2>
+          <div>
+            <span>Medium</span>
+          </div>
+        </div>
+
+        <button type="submit">Generate</button>
+      </form>
+    </main>
+
+    <!-- Password Generator
 
   P4$5W0rD!
 
@@ -23,7 +83,6 @@
 
   Strength
 
-  Generate
-
-</body>
+  Generate -->
+  </body>
 </html>
