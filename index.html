@@ -29,18 +29,87 @@
           </button>
         </div>
         <div class="form-fields">
-          <div class="password-length">
-            <label for="char-length">Character Length</label>
-            <span class="char-length">10</span>
-            <input
+          <div class="form-control__slider">
+            <h2 id="charLengthLabel">Character Length</h2>
+            <div id="charLengthValue">10</div>
+            <div id="charLengthSlider">
+              <div
+                id="charLengthSliderThumb"
+                aria-labelledby="charLengthLabel"
+                aria-orientation="horizontal"
+                tabindex="0"
+                aria-valuemin="0"
+                aria-valuemax="20"
+                aria-valuenow="10"
+                aria-valuetext="10 character length"
+                style="left: calc((25 - 20)*2rem - 10rem)"
+              >
+              </div>
+            </div>
+
+            <!-- If the JavaScript of the user fail this native range will be render -->
+            <!-- <input
               type="range"
               name="char-length"
-              id="char-length" />
+              id="char-length" /> -->
           </div>
           <fieldset class="inclusion-selector">
             <legend class="sr-only">Select Inclusion Options</legend>
-  
-            <div class="inclusion__option">
+            
+            <div class="form-control__checkbox">
+              <span
+                role="checkbox"
+                id="chkUppercase"
+                aria-checked="true"
+                tabindex="0"
+                aria-labelledby="chk1-label"
+              ></span>
+              <label for="chk1-label">
+                Include Uppercase Letter
+              </label>
+            </div>
+
+            <div class="form-control__checkbox">
+              <span
+                role="checkbox"
+                id="chkLowercase"
+                aria-checked="true"
+                tabindex="1"
+                aria-labelledby="chk2-label"
+              ></span>
+              <label for="chk2-label">
+                Include Lowercase Letter
+              </label>
+            </div>
+
+            <div class="form-control__checkbox">
+              <span
+                role="checkbox"
+                id="chkNumbers"
+                aria-checked="true"
+                tabindex="2"
+                aria-labelledby="chk3-label"
+              ></span>
+              <label for="chk3-label">
+                Include Numbers
+              </label>
+            </div>
+
+            <div class="form-control__checkbox">
+              <span
+                role="checkbox"
+                id="chkSymbols"
+                aria-checked="false"
+                tabindex="3"
+                aria-labelledby="chk4-label"
+              ></span>
+              <label for="chk4-label">
+                Include Symbols
+              </label>
+            </div>
+
+            <!-- If the JavaScript of the user fail this native range will be render -->
+            <!-- <div class="inclusion__option">
               <input
                 type="checkbox"
                 name="uppercase"
@@ -63,11 +132,13 @@
                 type="checkbox"
                 name="symbols"
                 id="symbols" /><label for="symbols">Include Symbols</label>
-            </div>
+            </div> -->
+            <!-- If the JavaScript of the user fail this native range will be render -->
+             
           </fieldset>
   
           <div class="password__rating">
-            <h2>Strength</h2>
+            <h3>Strength</h3>
             <div class="password__rating-bar">
               <span class="label">Medium</span>
             </div>
