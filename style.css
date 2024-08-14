@@ -402,15 +402,28 @@
         width: 24px;
         height: 24px;
 
+       
+        &:hover {
+          border: 2px solid var(--neon-green);
+          cursor: pointer;
+        }
+
         svg {
           display: none;
         }
        
       }
 
+      &:has(label:hover) .chkbox {
+        border: 2px solid var(--neon-green);
+        cursor: pointer;
+      }
+
+
       label {
         cursor: pointer;
         font-weight: 700;
+
 
         @media screen and (min-width: 48em) {
           font-size: var(--fs-body);
@@ -537,6 +550,13 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    
+    &.btn__copy {
+      &:hover svg path  {
+       fill: #fff;
+      }
+    }
+
 
     &.btn__submit {
       background-color: var(--neon-green);
@@ -552,5 +572,16 @@
       color: var(--dark-grey);
       font-weight: 700;
       font-size: var(--fs-body);
+      transition: background-color .25s ease-in-out;
+
+      &:hover {
+        border: 2px solid var(--neon-green);
+        background-color: var(--dark-grey);
+        color: var(--neon-green);
+
+        svg path {
+          fill: var(--neon-green);
+        }
+      }
     }
   }

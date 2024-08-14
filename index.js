@@ -4,7 +4,7 @@ const form = document.querySelector('.form');
 const checkboxes = document.querySelectorAll('[type="checkbox"]');
 const password = document.querySelector('#password')
 const strengthRating = document.querySelector('#strength-rating__label')
-const rating = document.querySelectorAll('.rating')
+const ratings = document.querySelectorAll('.rating')
 
 const selectedChars = []
 let charPool = ''
@@ -16,7 +16,7 @@ const inclusionOptions = {
   symbols: "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`"
 }
 
-// const strengthStates = ['tooWeak', 'weak', 'medium', 'strong']
+const strengthStates = ['too weak', 'weak', 'medium', 'strong']
 // const strengthStates = {}
 
 const handleInputRange = (e) => {
@@ -90,19 +90,25 @@ const handleSubmit = (e) => {
     }
   }
 
+  let ratingCount = 0
+
+
+  // strengthStates.forEach((state, i) => {
+  //   console.log(state, i)
+  // })
+  //  ** IMPORTANT
   if(range.value >= 1 && range.value < 5 ) {
-    strengthRating.textContent = 'Too Weak!'
+    strengthRating.textContent = strengthStates[ratingCount] + "!"
+    ratings[ratingCount].classList.add(strengthStates[ratingCount].replace(" ", ""))
   } else if (range.value >= 5 && range.value < 10) {
     strengthRating.textContent = 'Weak'
-
+    console.log(ratingCount)
   } else if (range.value >= 10 && range.value < 15) {
     strengthRating.textContent = 'Medium'
   } else if (range.value >= 15 && range.value < 20) {
     strengthRating.textContent = 'Strong'
   } else {
     strengthRating.textContent = ''
-
- 
   }
 
 
