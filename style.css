@@ -195,6 +195,8 @@
 
       span {
         font-size: var(--fs-heading-m);
+        color: var(--almost-white);
+        opacity: .20;
 
         @media screen and (min-width: 48em) {
           font-size: var(--fs-heading-l);
@@ -231,6 +233,8 @@
       font-weight: 700;
       font-size: 1rem;
       color: var(--almost-white);
+      grid-column: 1;
+
 
       @media screen and (min-width: 48em) {
         font-size: var(--fs-body);
@@ -292,6 +296,8 @@
     #output {
      font-size: var(--fs-heading-m); 
      color: var(--neon-green);
+     grid-column: -1;
+
 
      @media screen and (min-width: 48em) {
       font-size: var(--fs-heading-l);
@@ -303,8 +309,10 @@
       background: var(--very-dark-grey);
       height: 8px;
       background-image: linear-gradient(#A4FFAF, #A4FFAF);
-      background-size: 50% 100%;
+      background-size: 0% 100%;
       background-repeat: no-repeat;
+      grid-column: 1 / span 3;
+
 
       
 
@@ -464,15 +472,30 @@
     }
 
     .password__rating-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
       .label {
         text-transform: uppercase;
         color: var(--almost-white);
         font-size: var(--fs-body);
+        line-height: 0;
 
         @media screen and (min-width: 48em) {
           font-size: var(--fs-heading-m);
         }
         
+      }
+
+      .ratings {
+        display: flex;
+        gap: .5rem;
+        .rating {
+          border: 2px solid var(--almost-white);
+          width: 10px;
+          height: 28px;
+        }
       }
     }
   }
