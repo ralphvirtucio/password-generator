@@ -193,15 +193,26 @@
       padding-inline: 1rem;
       padding-block: 1.0625rem;
 
-      span {
-        font-size: var(--fs-heading-m);
+      .password {
+        &.unactive {
+          opacity: .20;
+        }
+        
+        &.active {
+          opacity: 1;
+        }
+        
         color: var(--almost-white);
-        opacity: .20;
+        font-size: var(--fs-heading-m);
 
         @media screen and (min-width: 48em) {
           font-size: var(--fs-heading-l);
         }
+
+      
       }
+
+
 
       @media screen and (min-width: 48em) {
         padding-inline: 2rem;
@@ -476,7 +487,7 @@
       align-items: center;
       gap: 1rem;
 
-      .label {
+      [id="strength-rating__label"] {
         text-transform: uppercase;
         color: var(--almost-white);
         font-size: var(--fs-body);
@@ -485,16 +496,38 @@
         @media screen and (min-width: 48em) {
           font-size: var(--fs-heading-m);
         }
+
         
       }
 
       .ratings {
         display: flex;
         gap: .5rem;
+
+
         .rating {
           border: 2px solid var(--almost-white);
           width: 10px;
           height: 28px;
+        }
+
+        .tooweak {
+          background-color: var(--red);
+          border: none;
+        }
+
+        .weak {
+          background-color: var(--orange);
+          border: none;
+        }
+        .medium {
+          background-color: var(--yellow);
+          border: none;
+        }
+
+        .strong {
+          background-color: var(--neon-green);
+          border: none;
         }
       }
     }
