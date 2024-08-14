@@ -15,7 +15,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
+    <script src="index.js" defer></script>
     <title>Frontend Mentor | Password generator app</title>
   </head>
   <body>
@@ -31,7 +31,9 @@
         <div class="form-fields">
           <div class="form-control__slider">
             <h2 id="charLengthLabel">Character Length</h2>
-            <div id="charLengthValue">10</div>
+            <output type="number" id="output" class="output">10</output>
+            <input type="range" name="range" id="range" value="10" min="0" max="20">
+            <!-- <div id="charLengthValue">10</div>
             <div id="charLengthSlider">
               <div
                 id="charLengthSliderThumb"
@@ -44,8 +46,8 @@
                 aria-valuetext="10 character length"
                 style="left: calc((25 - 20)*2rem - 10rem)"
               >
-              </div>
-            </div>
+              </div> -->
+            <!-- </div> -->
 
             <!-- If the JavaScript of the user fail this native range will be render -->
             <!-- <input
@@ -56,84 +58,46 @@
           <fieldset class="inclusion-selector">
             <legend class="sr-only">Select Inclusion Options</legend>
             
-            <div class="form-control__checkbox">
-              <span
-                role="checkbox"
-                id="chkUppercase"
-                aria-checked="true"
-                tabindex="0"
-                aria-labelledby="chk1-label"
-              ></span>
-              <label for="chk1-label">
-                Include Uppercase Letter
-              </label>
-            </div>
-
-            <div class="form-control__checkbox">
-              <span
-                role="checkbox"
-                id="chkLowercase"
-                aria-checked="true"
-                tabindex="1"
-                aria-labelledby="chk2-label"
-              ></span>
-              <label for="chk2-label">
-                Include Lowercase Letter
-              </label>
-            </div>
-
-            <div class="form-control__checkbox">
-              <span
-                role="checkbox"
-                id="chkNumbers"
-                aria-checked="true"
-                tabindex="2"
-                aria-labelledby="chk3-label"
-              ></span>
-              <label for="chk3-label">
-                Include Numbers
-              </label>
-            </div>
-
-            <div class="form-control__checkbox">
-              <span
-                role="checkbox"
-                id="chkSymbols"
-                aria-checked="false"
-                tabindex="3"
-                aria-labelledby="chk4-label"
-              ></span>
-              <label for="chk4-label">
-                Include Symbols
-              </label>
-            </div>
-
-            <!-- If the JavaScript of the user fail this native range will be render -->
-            <!-- <div class="inclusion__option">
+            <div class="form-control__chkbox">
               <input
                 type="checkbox"
                 name="uppercase"
-                id="uppercase" /><label for="uppercase">Include Uppercase Letters</label>
+                id="uppercase" />
+              <span class="chkbox">
+                <svg width="14" height="12" xmlns="http://www.w3.org/2000/svg"><path stroke="#18171F" stroke-width="3" fill="none" d="M1 5.607 4.393 9l8-8"/></svg>
+              </span>
+                <label for="uppercase">Include Uppercase Letters</label>
             </div>
-            <div class="inclusion__option">
+            <div class="form-control__chkbox">
               <input
                 type="checkbox"
                 name="lowercase"
-                id="lowercase" /><label for="lowercase">Include Lowercase Letters</label>
+                id="lowercase" />
+                <span class="chkbox">
+                  <svg width="14" height="12" xmlns="http://www.w3.org/2000/svg"><path stroke="#18171F" stroke-width="3" fill="none" d="M1 5.607 4.393 9l8-8"/></svg>
+                </span>
+                <label for="lowercase">Include Lowercase Letters</label>
             </div>
-            <div class="inclusion__option">
+            <div class="form-control__chkbox">
               <input
                 type="checkbox"
                 name="numbers"
-                id="numbers" /><label for="numbers">Include Numbers</label>
+                id="numbers" />
+                <span class="chkbox">
+                  <svg width="14" height="12" xmlns="http://www.w3.org/2000/svg"><path stroke="#18171F" stroke-width="3" fill="none" d="M1 5.607 4.393 9l8-8"/></svg>
+                </span>
+                <label for="numbers">Include Numbers</label>
             </div>
-            <div class="inclusion__option">
+            <div class="form-control__chkbox">
               <input
                 type="checkbox"
                 name="symbols"
-                id="symbols" /><label for="symbols">Include Symbols</label>
-            </div> -->
-            <!-- If the JavaScript of the user fail this native range will be render -->
+                id="symbols" />
+                <span class="chkbox">
+                  <svg width="14" height="12" xmlns="http://www.w3.org/2000/svg"><path stroke="#18171F" stroke-width="3" fill="none" d="M1 5.607 4.393 9l8-8"/></svg>
+                </span>
+                <label for="symbols">Include Symbols</label>
+            </div>
              
           </fieldset>
   

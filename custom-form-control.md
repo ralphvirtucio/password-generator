@@ -22,3 +22,11 @@
 # Rule of thumb for the slider
 
 > The position of the thumb is the maximum value minus the current value times the height of one degree, minus half the height of the thumb to center it.
+
+# Parts of Slider
+
+- Blue line in native slider is **Progress**
+
+- Circle Button lookalike is **Thumb**
+
+- The white line in native slider is **Track**
