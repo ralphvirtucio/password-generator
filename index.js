@@ -12,6 +12,8 @@ const scaleLabel = document.querySelector('.password-scale__label')
 const scales = document.querySelectorAll('.scale')
 const scaleContainer = document.querySelector('[data-password-strength]')
 const generateBtn = document.querySelector('.btn__submit')
+const password = document.querySelector('#password')
+const copyButton = document.querySelector('.btn__copy')
 
 // Initialize a array for balance selection
 const selectedCharTypes = []
@@ -27,6 +29,28 @@ const characterTypes = {
   symbols: "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`"
 }
 
+
+const handleCopyButton = async () => {
+  try {
+    const value = password.textContent
+    if(value !== 'P4$5W0rD!') {
+      await navigator.clipboard.writeText(value)
+      alert('Successfully copied to clipboard')
+    }
+  } catch(error) {
+    alert("Something went wrong: " + error.message)
+  }
+}
+// const handleCopyButton = (e) => {
+//   navigator.clipboard.writeText(value)
+//   // console.log(e)
+//   // if(value === 'P4$5W0rD!') {
+//   //   e.clipboardData.setData('text/plain', value);
+//   //   alert(value + ' ' + 'copied')
+//   // }
+
+//   // e.preventDefault();
+// }
 
 // To handle the changes in the input range
 const handleInputRange = (e) => {
@@ -237,3 +261,4 @@ range.addEventListener('input', handleInputRange)
 chkBoxes.forEach(el => {
   el.addEventListener('change', handleInputChkbox)
 })
+copyButton.addEventListener('click', handleCopyButton)
