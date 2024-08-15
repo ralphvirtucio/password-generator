@@ -8,6 +8,10 @@ const uppercaseChkbox = document.querySelector('#uppercase')
 const lowercaseChkbox = document.querySelector('#lowercase')
 const numberChkbox = document.querySelector('#number')
 const symbolChkbox = document.querySelector('#symbol')
+const scaleLabel = document.querySelector('.password-scale__label')
+const scales = document.querySelectorAll('.scale')
+const scaleContainer = document.querySelector('[data-password-strength]')
+const generateBtn = document.querySelector('.btn__submit')
 
 // Initialize a array for balance selection
 const selectedCharTypes = []
@@ -15,7 +19,6 @@ const selectedCharTypes = []
 // Initialize a variable for filling up the remaining spots of the password
 let charPool = ''
 
-// 
 
 const characterTypes = {
   uppercase:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -24,54 +27,6 @@ const characterTypes = {
   symbols: "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`"
 }
 
-const inclusionOptions = () => {
-  const chkBoxArr = []
-
-  chkBoxes.forEach(el => {
-    chkBoxArr.push(el)
-  })
-
-  const updatedChkboxArr = chkBoxArr.map(val => {
-    return {
-      name: val.getAttribute('name'),
-      value: val?.checked ? val.checked : false
-    }
-  })
-
-  return updatedChkboxArr
-}
-
-
-// const calculateEntropy = (password) => {
-//   let n = 0
-//   const hasUpperCase = uppercaseChkbox.checked ?? false
-//   const hasLowerCase = lowercaseChkbox.checked ?? false
-//   const hasNumbers = numberChkbox.checked ?? false
-//   const hasSymbols = symbolChkbox.checked ?? false
-
-//   if (hasUpperCase) {
-//     n += 26
-//   }
-  
-//   if (hasLowerCase) {
-//     n += 26
-//   }
-  
-//   if (hasNumbers) {
-//     n += 10
-//   }
-  
-//   if (hasSymbols) {
-//     n += 32
-//   }
-
-//   const entropy = password.length * Math.log2(n);
-
-  
-
-
-
-// }
 
 // To handle the changes in the input range
 const handleInputRange = (e) => {
@@ -163,12 +118,61 @@ const generateRandomCharInPool = (charLength, length) => {
     return generatedChar;
 }
 
+const calculateEntropy = (password) => {
+  const arr = [...password]
+
+  let total = 0;
+  let hasUpperCase =  false;
+  let hasLowerCase =  false;
+  let hasNumberCase =  false;
+  let hasSymbolCase =  false;
+
+  arr.forEach(char => {
+    if(characterTypes.lowercase.includes(char)) {
+      hasLowerCase = true
+    } else if(characterTypes.uppercase.includes(char)) {
+      hasUpperCase = true
+    } else if(characterTypes.numbers.includes(char)) {
+      hasNumberCase = true
+    } else if(characterTypes.symbols.includes(char)) {
+      hasSymbolCase = true
+    }
+  })
+  
+
+  if(hasLowerCase) {
+    total += 26
+  }
+  if(hasUpperCase) {
+    total += 26
+  }
+  if(hasNumberCase) {
+    total += 10
+  }
+  if(hasSymbolCase) {
+    total += 26
+  }
+
+  const entropy = password.length * Math.log2(total);
+
+  const truncatedEntropy = Math.trunc(entropy)
+
+
+  return truncatedEntropy
+
+}
+
 const handleGeneratePassword = (e) => {
   e.preventDefault();
-
   const characterLength = range.value;
+
+  if(selectedCharTypes.length === 0 || characterLength === 0) {
+    renderPassword('')
+    return;
+  }
   
   let balancedPassword = '';
+  scaleLabel.textContent = ''
 
   // Calculate the portion length for balanced selection
   // Math.trunc: to avoid decimal point when dividing the character length and selected character types length
@@ -183,35 +187,50 @@ balancedPassword
 
   // Shuffle the password, making it less predictable and more secure
   const generatedPassword = shufflePassword(balancedPassword)
-  // countPasswordStrength(generatedPassword)
-  // renderPassword(generatedPassword)
+
+  const computedEntropy = calculateEntropy(generatedPassword)
+
+  scales.forEach(el => {
+    if(el.classList.contains(scaleContainer.dataset.passwordStrength)) {
+        el.classList.remove(scaleContainer.dataset.passwordStrength)
+    }
+  })
+
+  if(computedEntropy < 56) {
+    scaleLabel.textContent = 'Too Weak!'
+    scaleContainer.dataset.passwordStrength = 'tooweak'
+    scales[0].classList.add('tooweak')
+  } else if(computedEntropy >= 56  && computedEntropy <= 81) {
+    scaleLabel.textContent = 'Weak'
+    scaleContainer.dataset.passwordStrength = 'weak'
+  
+    scales[0].classList.add('weak')
+    scales[1].classList.add('weak')
+
+
+  } else if (computedEntropy >= 81 && computedEntropy <= 111) {
+    scaleLabel.textContent = 'Medium'
+    scaleContainer.dataset.passwordStrength = 'medium'
+
+    scales[0].classList.add('medium')
+    scales[1].classList.add('medium')
+    scales[2].classList.add('medium')
+
+
+  } else if (computedEntropy > 111) {
+    scaleLabel.textContent = 'Strong'
+    scaleContainer.dataset.passwordStrength = 'strong'
+
+    scales[0].classList.add('strong')
+    scales[1].classList.add('strong')
+    scales[2].classList.add('strong')
+    scales[3].classList.add('strong')
+  }
+  renderPassword(generatedPassword)
 } 
 
 
 // EventListeners
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  const computedBackgroundSize = ((range.value - range.min) / (range.max - range.min)) * 100 +"% 100%";
-
-  // dynamic updates of the input range background size
-  range.style.backgroundSize = computedBackgroundSize
-
-
-  // Set the range value to the output element
-  output.textContent = range.value;
-
-  uppercaseChkbox.checked = true
-  lowercaseChkbox.checked = true
-
-  selectedCharTypes.push('uppercase')
-  selectedCharTypes.push('lowercase')
-
-  
-  for(let i = 0; i < selectedCharTypes.length; i++) {
-    charPool += characterTypes[selectedCharTypes[i]];
-  }
-})
 
 form.addEventListener('submit', handleGeneratePassword)
 range.addEventListener('input', handleInputRange)

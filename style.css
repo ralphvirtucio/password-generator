@@ -456,6 +456,23 @@
           border: 2px solid var(--almost-white);
           width: 10px;
           height: 28px;
+
+          &.tooweak {
+            background-color: var(--red);
+            border: none;
+          }
+          &.weak {
+            background-color: var(--orange);
+            border: none;
+          }
+          &.medium {
+            background-color: var(--yellow);
+            border: none;
+          }
+          &.strong {
+            background-color: var(--neon-green);
+            border: none;
+          }
         }
       }
     }
