@@ -4,10 +4,10 @@ const range = document.querySelector('#range');
 const output = document.querySelector('#output');
 const chkBoxes = document.querySelectorAll('[type="checkbox"]');
 const form = document.querySelector('.form')
-// const uppercaseChkbox = document.querySelector('#uppercase')
-// const lowercaseChkbox = document.querySelector('#lowercase')
-// const numberChkbox = document.querySelector('#number')
-// const symbolChkbox = document.querySelector('#symbol')
+const uppercaseChkbox = document.querySelector('#uppercase')
+const lowercaseChkbox = document.querySelector('#lowercase')
+const numberChkbox = document.querySelector('#number')
+const symbolChkbox = document.querySelector('#symbol')
 
 // Initialize a array for balance selection
 const selectedCharTypes = []
@@ -16,7 +16,6 @@ const selectedCharTypes = []
 let charPool = ''
 
 // 
-let strengthCount = 0;
 
 const characterTypes = {
   uppercase:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -43,28 +42,36 @@ const inclusionOptions = () => {
 }
 
 
-const countPasswordStrength = () => {
+// const calculateEntropy = (password) => {
+//   let n = 0
+//   const hasUpperCase = uppercaseChkbox.checked ?? false
+//   const hasLowerCase = lowercaseChkbox.checked ?? false
+//   const hasNumbers = numberChkbox.checked ?? false
+//   const hasSymbols = symbolChkbox.checked ?? false
 
+//   if (hasUpperCase) {
+//     n += 26
+//   }
+  
+//   if (hasLowerCase) {
+//     n += 26
+//   }
+  
+//   if (hasNumbers) {
+//     n += 10
+//   }
+  
+//   if (hasSymbols) {
+//     n += 32
+//   }
 
-  const passwordLength = range.value
-  const characterOptions = inclusionOptions().filter(option => option.value);
-
-
-  // if(passwordLength < 8 && passwordLength < 10 || ((passwordLength < 8 && passwordLength < 10) && characterOptions.length === 1)) {
-  //   strengthCount += 1;
-  // } else if (passwordLength > 8 && passwordLength < 10 || ((passwordLength > 8 && passwordLength < 10) && characterOptions.length === 2)) {
-  //   strengthCount += 1;
-  // } else if ((passwordLength > 10 && passwordLength < 12) && characterOptions.length === 3) {
-  //   strengthCount += 1;
-  // } else if (passwordLength > 12 && characterOptions.length === 4) {
-  //   strengthCount += 1;
-  // }
-
-
+//   const entropy = password.length * Math.log2(n);
 
   
 
-}
+
+
+// }
 
 // To handle the changes in the input range
 const handleInputRange = (e) => {
@@ -75,7 +82,6 @@ const handleInputRange = (e) => {
   // dynamic updates of the input range background size
   style.backgroundSize = computedBackgroundSize
 
-  countPasswordStrength()
 
   // Set the range value to the output element
   output.textContent = value;
@@ -169,7 +175,6 @@ const handleGeneratePassword = (e) => {
   const computedPortionLength = Math.trunc(characterLength / selectedCharTypes.length);
 balancedPassword
   balancedPassword += generateRandomChars(computedPortionLength);
-
   // Check if theres still remaining password to fill in
   if(balancedPassword.length < characterLength) {
     // Generate a random characters based in the character pool
@@ -178,12 +183,36 @@ balancedPassword
 
   // Shuffle the password, making it less predictable and more secure
   const generatedPassword = shufflePassword(balancedPassword)
-
-  renderPassword(generatedPassword)
+  // countPasswordStrength(generatedPassword)
+  // renderPassword(generatedPassword)
 } 
 
 
 // EventListeners
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const computedBackgroundSize = ((range.value - range.min) / (range.max - range.min)) * 100 +"% 100%";
+
+  // dynamic updates of the input range background size
+  range.style.backgroundSize = computedBackgroundSize
+
+
+  // Set the range value to the output element
+  output.textContent = range.value;
+
+  uppercaseChkbox.checked = true
+  lowercaseChkbox.checked = true
+
+  selectedCharTypes.push('uppercase')
+  selectedCharTypes.push('lowercase')
+
+  
+  for(let i = 0; i < selectedCharTypes.length; i++) {
+    charPool += characterTypes[selectedCharTypes[i]];
+  }
+})
+
 form.addEventListener('submit', handleGeneratePassword)
 range.addEventListener('input', handleInputRange)
 chkBoxes.forEach(el => {

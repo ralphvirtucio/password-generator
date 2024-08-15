@@ -380,92 +380,28 @@
       align-items: center;
       gap: 1.25rem;
 
+
       [type="checkbox"] {
-        display: none;
-        position: absolute;
-
-        &:checked + .chkbox {
-          background-color: var(--neon-green);
-          border: none;
-        }
-
-        &:checked + .chkbox svg {
-         display: block;
-        }
-      }
-
-      .chkbox  {
-        border: 2px solid var(--almost-white);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 24px;
-        height: 24px;
-
-       
-        &:hover {
-          border: 2px solid var(--neon-green);
-          cursor: pointer;
-        }
-
-        svg {
-          display: none;
-        }
-       
-      }
-
-      &:has(label:hover) .chkbox {
-        border: 2px solid var(--neon-green);
-        cursor: pointer;
-      }
-
-
-      label {
-        cursor: pointer;
-        font-weight: 700;
-
-
-        @media screen and (min-width: 48em) {
-          font-size: var(--fs-body);
-        }
-      }
-    }
-    /* .form-control__checkbox {
-      display: flex;
-      gap: 1.25rem;
-      align-items: center;
-
-      [role="checkbox"] {
+        appearance: none;
         width: 20px;
         height: 20px;
-        display: inline-block;
-        outline: 2px solid var(--almost-white);
-        
-      }
+        border: 2px solid var(--almost-white);
+        cursor: pointer;
 
-      [aria-checked="true"] {
-          outline: none;
-
-          &::before {
-          content: url('./assets/images/icon-check.svg');
-          background-color: var(--neon-green);
-          width: 20px;
-          height: 20px;
-          display: inline-block;
-          text-align: center;
+        &:hover {
+          border: 2px solid var(--neon-green);
         }
-      } */
-    }
 
-    /* .inclusion__option {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      column-gap: 1.25rem;
-
-      label {
-        font-weight: 700;
+        &:checked {
+          border-color: var(--neon-green);
+          background-image: url('./assets/images/icon-check.svg');
+          background-size: 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-color: #A4FFAF;
+        }
       }
-    } */
+    }
   }
 
   .password__rating {
@@ -495,12 +431,12 @@
       
     }
 
-    .password__rating-bar {
+    .password-scale {
       display: flex;
       align-items: center;
       gap: 1rem;
 
-      [id="strength-rating__label"] {
+      .password-scale__label {
         text-transform: uppercase;
         color: var(--almost-white);
         font-size: var(--fs-body);
@@ -508,39 +444,18 @@
 
         @media screen and (min-width: 48em) {
           font-size: var(--fs-heading-m);
-        }
+        }      
 
-        
       }
 
-      .ratings {
+      .scales {
         display: flex;
         gap: .5rem;
 
-
-        .rating {
+        .scale {
           border: 2px solid var(--almost-white);
           width: 10px;
           height: 28px;
-        }
-
-        .tooweak {
-          background-color: var(--red);
-          border: none;
-        }
-
-        .weak {
-          background-color: var(--orange);
-          border: none;
-        }
-        .medium {
-          background-color: var(--yellow);
-          border: none;
-        }
-
-        .strong {
-          background-color: var(--neon-green);
-          border: none;
         }
       }
     }
