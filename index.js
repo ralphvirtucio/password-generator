@@ -14,6 +14,10 @@ const scaleContainer = document.querySelector('[data-password-strength]')
 const generateBtn = document.querySelector('.btn__submit')
 const password = document.querySelector('#password')
 const copyButton = document.querySelector('.btn__copy')
+const dialog = document.querySelector('dialog')
+const dialogMsg = document.querySelector('.dialog-msg')
+const body = document.querySelector('body')
+
 
 // Initialize a array for balance selection
 const selectedCharTypes = []
@@ -29,28 +33,44 @@ const characterTypes = {
   symbols: "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`"
 }
 
+// Closing the dialog by clicking the body element
+const handleDialogClose = () => {
+    dialog.close()
+}
+
+const renderDialog = (message, classStyle) => {
+  dialog.showModal();
+  dialog.classList.remove('error')
+  dialogMsg.textContent = message
+
+  setTimeout(() => {
+    dialog.close()
+  }, 3000)
+}
+
+const renderInvalidDialog = (message) => {
+  dialog.showModal();
+  dialog.classList.add('error')
+  dialogMsg.textContent = message
+
+  setTimeout(() => {
+    dialog.close()
+  }, 3000)
+}
+
+
 
 const handleCopyButton = async () => {
   try {
     const value = password.textContent
     if(value !== 'P4$5W0rD!') {
       await navigator.clipboard.writeText(value)
-      alert('Successfully copied to clipboard')
+      renderDialog('Successfully copied to clipboard!')
     }
   } catch(error) {
-    alert("Something went wrong: " + error.message)
+    renderInvalidDialog("Something went wrong: " + error.message)
   }
 }
-// const handleCopyButton = (e) => {
-//   navigator.clipboard.writeText(value)
-//   // console.log(e)
-//   // if(value === 'P4$5W0rD!') {
-//   //   e.clipboardData.setData('text/plain', value);
-//   //   alert(value + ' ' + 'copied')
-//   // }
-
-//   // e.preventDefault();
-// }
 
 // To handle the changes in the input range
 const handleInputRange = (e) => {
@@ -186,40 +206,7 @@ const calculateEntropy = (password) => {
 
 }
 
-const handleGeneratePassword = (e) => {
-  e.preventDefault();
-  const characterLength = range.value;
-
-  if(selectedCharTypes.length === 0 || characterLength === 0) {
-    renderPassword('')
-    return;
-  }
-  
-  let balancedPassword = '';
-  scaleLabel.textContent = ''
-
-  // Calculate the portion length for balanced selection
-  // Math.trunc: to avoid decimal point when dividing the character length and selected character types length
-  const computedPortionLength = Math.trunc(characterLength / selectedCharTypes.length);
-balancedPassword
-  balancedPassword += generateRandomChars(computedPortionLength);
-  // Check if theres still remaining password to fill in
-  if(balancedPassword.length < characterLength) {
-    // Generate a random characters based in the character pool
-    balancedPassword += generateRandomCharInPool(characterLength, balancedPassword.length)
-  }
-
-  // Shuffle the password, making it less predictable and more secure
-  const generatedPassword = shufflePassword(balancedPassword)
-
-  const computedEntropy = calculateEntropy(generatedPassword)
-
-  scales.forEach(el => {
-    if(el.classList.contains(scaleContainer.dataset.passwordStrength)) {
-        el.classList.remove(scaleContainer.dataset.passwordStrength)
-    }
-  })
-
+const validatePasswordStrength = (computedEntropy) => {
   if(computedEntropy < 56) {
     scaleLabel.textContent = 'Too Weak!'
     scaleContainer.dataset.passwordStrength = 'tooweak'
@@ -250,6 +237,45 @@ balancedPassword
     scales[2].classList.add('strong')
     scales[3].classList.add('strong')
   }
+}
+
+const handleGeneratePassword = (e) => {
+  e.preventDefault();
+  const characterLength = range.value;
+
+  if(selectedCharTypes.length === 0 || characterLength === 0) {
+    renderInvalidDialog('Please select an length and inclusion')
+    return;
+  }
+  
+  let balancedPassword = '';
+  scaleLabel.textContent = ''
+
+  // Calculate the portion length for balanced selection
+  // Math.trunc: to avoid decimal point when dividing the character length and selected character types length
+  const computedPortionLength = Math.trunc(characterLength / selectedCharTypes.length);
+balancedPassword
+  balancedPassword += generateRandomChars(computedPortionLength);
+  // Check if theres still remaining password to fill in
+  if(balancedPassword.length < characterLength) {
+    // Generate a random characters based in the character pool
+    balancedPassword += generateRandomCharInPool(characterLength, balancedPassword.length)
+  }
+
+  // Shuffle the password, making it less predictable and more secure
+  const generatedPassword = shufflePassword(balancedPassword)
+
+  const computedEntropy = calculateEntropy(generatedPassword)
+
+  // Removing the class to avoid overlapping of the class which make the other strength bar bg not work
+  scales.forEach(el => {
+    if(el.classList.contains(scaleContainer.dataset.passwordStrength)) {
+      el.classList.remove(scaleContainer.dataset.passwordStrength)
+    }
+  })
+  
+  validatePasswordStrength(computedEntropy)
+ 
   renderPassword(generatedPassword)
 } 
 
@@ -261,4 +287,6 @@ range.addEventListener('input', handleInputRange)
 chkBoxes.forEach(el => {
   el.addEventListener('change', handleInputChkbox)
 })
-copyButton.addEventListener('click', handleCopyButton)
+copyButton.addEventListener('click', handleCopyButton);
+
+body.addEventListener('click', handleDialogClose)
