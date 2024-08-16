@@ -239,15 +239,22 @@ const validatePasswordStrength = (computedEntropy) => {
   }
 }
 
+
 const handleGeneratePassword = (e) => {
   e.preventDefault();
   const characterLength = range.value;
 
-  if(selectedCharTypes.length === 0 || characterLength === 0) {
-    renderInvalidDialog('Please select an length and inclusion')
-    return;
+  if(selectedCharTypes.length === 0 && characterLength === '0') {
+    renderInvalidDialog('Please fill out the password generator')
+    return
+  } else if (characterLength === '0') {
+    renderInvalidDialog('Please set a character length')
+    return
+  } else if (selectedCharTypes.length === 0) {
+    renderInvalidDialog('Please select an inclusion')
+    return
   }
-  
+
   let balancedPassword = '';
   scaleLabel.textContent = ''
 
