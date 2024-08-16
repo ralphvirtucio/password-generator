@@ -239,19 +239,27 @@ const validatePasswordStrength = (computedEntropy) => {
   }
 }
 
+const isFormValid = (characterLength) => {
+  if(selectedCharTypes.length === 0 && characterLength === '0') {
+    renderInvalidDialog('Please fill out the password generator')
+    return false
+  } else if (characterLength === '0') {
+    renderInvalidDialog('Please set a character length')
+    return false
+  } else if (selectedCharTypes.length === 0) {
+    renderInvalidDialog('Please select an inclusion')
+    return false
+  }
+
+  return true
+}
+
 
 const handleGeneratePassword = (e) => {
   e.preventDefault();
   const characterLength = range.value;
 
-  if(selectedCharTypes.length === 0 && characterLength === '0') {
-    renderInvalidDialog('Please fill out the password generator')
-    return
-  } else if (characterLength === '0') {
-    renderInvalidDialog('Please set a character length')
-    return
-  } else if (selectedCharTypes.length === 0) {
-    renderInvalidDialog('Please select an inclusion')
+  if(!isFormValid(characterLength)) {
     return
   }
 
